@@ -13,9 +13,14 @@ documentacion:
 
 	
 # ************ Compilación de módulos ************
-$(BIN)/pruebacronologia:
+$(BIN)/pruebacronologia: $(OBJ)/FechaHistorica.o $(OBJ)/Cronologia.o
+	$(CXX) -Wall -g -o $(BIN)/pruebacronologia $(OBJ)/FechaHistorica.o $(OBJ)/Cronologia.o
 
+$(OBJ)/Cronologia.o : $(INC)/Cronologia.h $(SRC)/Cronologia.cpp $(INC)/FechaHistorica.h $(INC)/VectorDinamico.h $(SRC)/VectorDinamico.cpp
+	$(CXX) $(CPPFLAGS) -I./$(INC) -o $(OBJ)/Cronologia.o $(SRC)/Cronologia.cpp $(SRC)/VectorDinamico.cpp
 
+$(OBJ)/FechaHistorica.o : $(INC)/FechaHistorica.h $(SRC)/FechaHistorica.cpp $(INC)/VectorDinamico.h $(SRC)/VectorDinamico.cpp
+	$(CXX) $(CPPFLAGS) -I./$(INC) -o $(OBJ)/FechaHistorica.o $(SRC)/FechaHistorica.cpp $(SRC)/VectorDinamico.cpp
 
 # ************ Limpieza ************
 clean :

@@ -44,46 +44,24 @@ class Cronologia {
   *
   * Un objeto válido @e rep del TDA Cronologia representa al valor
   *
-  * (rep.cronolog,rep.reservados,rep.ocupados)
+  * (rep.cronolog)
   *
   */
 
-  FechaHistorica* cronolog; /**< cronolog */
-  int reservados; /**< número de posiciones reservadas*/
-  int ocupados; /**< número de posiciones ocupadas por cronolog*/
-  
-/**
-  * @brief Redimensiona el vector de cronolog
-  * @param n nuevo valor para reservados
-  */
-  void resize(int n);
+  VectorDinamico<FechaHistorica> cronol; /**< cronol */
 
  public:
 
 /**
   * @brief Constructor por defecto de la clase. Asigna NULL a cronolog 
   */
-  FechaHistorica();
-
-/**
-  * @brief Constructor de la clase
-  * @param a año en el que ocurrieron los hechos
-  * @return crea una fecha histórica sin ningún hecho asociado
-  */
-  FechaHistorica(int a);  
-
-/**
-  * @brief Constructor de copias de la clase
-  * @param c.anio año en el que ocurrieron los hechos
-  * @param c.hechos hechos que ocurrieron en ese año
-  * @param c.numelem número de hechos que ocurrieron ese año
-  */
-  FechaHistorica(const Racional & c);  
+  Cronologia();
+ 
 
 /**
   * @brief Destructor de la clase
   */
-  ~FechaHistorica();  
+  ~Cronologia();  
 
 /**
   * @brief Devuelve año

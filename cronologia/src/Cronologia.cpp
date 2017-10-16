@@ -9,20 +9,7 @@ using namespace std;
 //Constructor por defecto
 Cronologia::Cronologia(){
   cronolog = NULL;
-  reservados=0;
-  ocupados=0;
 } 
-
-/**Constructor por reserva
-Cronologia::Cronologia(int reservar){
-	ocupados=0;
-	if(reservar>0)
-  		reservados=reservar;
-  	else
-		reservados=0;
-	cronolog= new FechaHistorica[reservados];
-} 
-*/
 
 //Constructor copia
 Cronologia::Cronologia(const Cronologia & c){
@@ -40,46 +27,18 @@ Cronologia::~Cronologia(){
 	}
 }
 
-//Redimensionar
-void Cronologia::resize(int n){
-  assert(n>=0);
-  if (n!=reservados){
-    if (n!=0){
-      string* nueva_cronolog=new FechaHistorica[n];
-      if (ocupados>0){
-        if (ocupados>n)
-          ocupados=n;
-        for (int i=0 ; i<ocupados ; ++i)
-          nueva_cronolog[i]=cronolog[i];
-        delete[] cronolog;
-      }
-      reservados=n;
-      cronolog=nueva_cronolog;
+//Insertar
+void Cronologia::insertar(const FechaHistorica &fech, int pos){
+	if(pos>=0){
+		cronol.insertar(fech, pos);
+	}
     }
-    else{
-      if (reservados>0)
-        delete[] cronolog;
-      cronolog=0;
-      reservados=0;
-      ocupados=0;
-    }
-  }
-}
+    
 
-/*
+//Insertar al principio
 void Cronologia::insertarPrincipio(const FechaHistorica &fech){
-        FechaHistorica* aux = new FechaHistorica;
-        aux = fech;
-        lista = aux;
+	insertar(fech, 0);
     }
-    
-    
 
 
-/*
-Cronologia::Anadir(FechaHistorica & fech){
-	if(ocupados+1>=reservados){
-		resize(2+ocupados);
-	{
-	
-}
+

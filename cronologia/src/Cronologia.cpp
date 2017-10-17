@@ -98,6 +98,11 @@ bool Cronologia::vacia() const{
 	return cronol == 0;
 }
 
+//BUSCAR EVENTOS
+Cronologia Cronologia::buscarEventos(string & h){
+		
+}
+
 //operador =
 Cronologia & Cronologia::operator=(const Cronologia & c){
 	 if (this!=&c)

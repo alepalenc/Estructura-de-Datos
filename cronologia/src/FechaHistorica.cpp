@@ -71,6 +71,42 @@ void FechaHistorica::operator-=(const string & h){
 }
 
 
+//Operador <
+bool FechaHistorica::operator<(const FechaHistorica & f) const{
+  return anio<f.anio;
+}
+
+
+//Operador >
+bool FechaHistorica::operator>(const FechaHistorica & f) const{
+  return anio>f.anio;
+}
+
+
+//Operador <=
+bool FechaHistorica::operator<=(const FechaHistorica & f) const{
+  return anio<=f.anio;
+}
+
+
+//Operador >=
+bool FechaHistorica::operator>=(const FechaHistorica & f) const{
+  return anio>=f.anio;
+}
+
+
+//Operador ==
+bool FechaHistorica::operator==(const FechaHistorica & f) const{
+  return anio==f.anio;
+}
+
+
+//Operador !=
+bool FechaHistorica::operator>=(const FechaHistorica & f) const{
+  return anio!=f.anio;
+}
+
+
 //Operador <<
 ostream & operator<<(ostream & os, const FechaHistorica & fecha){
   os << anio;

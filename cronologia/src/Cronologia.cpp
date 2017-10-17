@@ -8,16 +8,12 @@ using namespace std;
 
 //Constructor por defecto
 Cronologia::Cronologia(){
-  cronolog = NULL;
+  cronol = 0;
 } 
 
 //Constructor copia
 Cronologia::Cronologia(const Cronologia & c){
-  reservados=c.reservados;
-  ocupados=c.ocupados;
-  cronolog=new FechaHistorica[reservados];
-  for (int i=0 ; i<ocupados ; ++i)
-    cronolog[i]=c.cronolog[i];
+   cronol=c.cronol;
 }
 
 //Destructor
@@ -28,9 +24,15 @@ Cronologia::~Cronologia(){
 }
 
 //Insertar
-void Cronologia::insertar(const FechaHistorica &fech, int pos){
-	if(pos>=0){
-		cronol.insertar(fech, pos);
+void Cronologia::insertar(const FechaHistorica &fech){
+	int aux =fech.anio;;
+	int i=0;
+	while(cronol[i].anio<aux)
+		i++;
+	if(cronol[i] == aux){
+		//////////
+	}else{
+		cronol.insertar(fech, i);
 	}
     }
     
@@ -39,6 +41,16 @@ void Cronologia::insertar(const FechaHistorica &fech, int pos){
 void Cronologia::insertarPrincipio(const FechaHistorica &fech){
 	insertar(fech, 0);
     }
+
+//Eliminar
+void Cronologia::eliminar(int pos){
+	cronol.eliminar(pos);
+}
+
+//Comprobar que está vacia
+bool Cronologia::vacia(){
+	return cronol == 0;
+}
 
 
 

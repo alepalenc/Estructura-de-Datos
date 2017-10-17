@@ -16,10 +16,9 @@ using namespace std;
   *
   * Una instancia @e c del tipo de datos abstracto @c Cronologia es un
 ////////////////////////////////////
-  * objeto compuesto por tres enteros y un string, que representan, 
-  * respectivamente, una fecha, un conjunto de acontecimientos ocurridos en 
-  * esa fecha, y dos números naturales para administrarlo (número de posiciones
-  * ocupadas y número de posiciones reservadas).
+  * objeto compuesto por un vector dinamino de FechaHistorica, que representa, 
+  * unas fechas con, cada una, un conjunto de acontecimientos ocurridos en 
+  * esa fecha.
   *
   * Un ejemplo de su uso:
   * @include pruebacronologia.cpp
@@ -36,15 +35,11 @@ class Cronologia {
 /**
   * @page repConjunto Rep del TDA Cronologia
   *
-  * @section invConjunto Invariante de la representación
-  *
-  * El invariante es \e rep.reservados>=rep.ocupados>=0
-  *
   * @section faConjunto Función de abstracción
   *
   * Un objeto válido @e rep del TDA Cronologia representa al valor
   *
-  * (rep.cronolog)
+  * (rep.cronol)
   *
   */
 
@@ -64,29 +59,40 @@ class Cronologia {
   ~Cronologia();  
 
 /**
-  * @brief Devuelve año
-  * @return Devuelve el año
+  * @brief Contructor copia de la clase.
   */ 
-  int getAnio() const;
+ Cronologia(const Cronologia & c);
 
 /**
-  * @brief Devuelve reservados
-  * @return Devuelve el número de posiciones reservadas en el vector
+  * @brief elimina una posicion especifica de cronol
   */ 
-  int getReservados() const;
+  void eliminar(int pos);
+ 
+ /**
+  * @brief elimina una fecha especifica de cronol
+  */ 
+  void eliminarFecha(int fech);
 
-/**
-  * @brief Devuelve ocupados
-  * @return Devuelve el número de hechos guardados
-  */ 
-  int getOcupados() const;
 
 /**
   * @brief Comprueba si un hecho ya pertenece al vector hechos
   * @param h hecho a comprobar
   */
-  bool consultar(const string & h) const;
+ bool consultar(const string & h) const;
+ 
+ /**
+  * @brief Busca a que anio pertenece el hecho enunciado
+  * @param h hecho a comprobar
+  * @return Devuelve el anio en que se encuentra ese hecho (si no está devuelve -1) 
+  */
+  int consultarHecho(const string & h);
 
+ /**
+  * @brief Comprueba si un anio ya pertenece al vector cronol
+  * @param fech anio a comprobar
+  */
+  int consultarAnio(int fech);
+ 
 /**
   * @brief Comprueba si no hay ningún hecho guardado
   */

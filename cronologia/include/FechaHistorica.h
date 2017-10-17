@@ -74,18 +74,11 @@ class FechaHistorica {
     FechaHistorica(int a=0);
 
   /**
-    * @brief Constructor de la clase
-    * @param a año en el que ocurrieron los hechos
-    * @return crea una fecha histórica sin ningún hecho asociado
-    */
-    FechaHistorica(int a);  
-
-  /**
     * @brief Constructor de copia de la clase
     * @param c.anio año en el que ocurrieron los hechos
     * @param c.hechos hechos que ocurrieron en ese año
     */
-    FechaHistorica(const Racional & c);  
+    FechaHistorica(const FechaHistorica & c);  
   
   // -----------------  Destructor ------------------
   /**
@@ -117,7 +110,6 @@ class FechaHistorica {
     * @brief Operador de asignación de la clase
     * @param c.anio año en el que ocurrieron los hechos
     * @param c.hechos hechos que ocurrieron en ese año
-    * @param c.numelem número de hechos que ocurrieron ese año
     */
     FechaHistorica & operator=(const FechaHistorica & c);
 
@@ -134,9 +126,57 @@ class FechaHistorica {
     * @pos Si el hecho no estaba registrado, no se hace ningún cambio.
     */ 
     void operator-=(const string & h);
-
+	
+	/**
+    * @brief Compara los años de dos fechas históricas
+    * @param f FechaHistorica a comparar
+    * @ret Devuelve un booleano, 1 si el primer año es menor estricto que el 
+		*   segundo, 0 en caso contrario.
+    */ 
+    bool operator<(const FechaHistorica & f) const;
+	
+	/**
+    * @brief Compara los años de dos fechas históricas
+    * @param f FechaHistorica a comparar
+    * @ret Devuelve un booleano, 1 si el primer año es mayor estricto que el 
+		*   segundo, 0 en caso contrario.
+    */ 
+    bool operator>(const FechaHistorica & f) const;
+	
+	/**
+    * @brief Compara los años de dos fechas históricas
+    * @param f FechaHistorica a comparar
+    * @ret Devuelve un booleano, 1 si el primer año es menor o igual que el 
+		*   segundo, 0 en caso contrario.
+    */ 
+    bool operator<=(const FechaHistorica & f) const;
+	
+	/**
+    * @brief Compara los años de dos fechas históricas
+    * @param f FechaHistorica a comparar
+    * @ret Devuelve un booleano, 1 si el primer año es mayor o igual que el 
+		*   segundo, 0 en caso contrario.
+    */ 
+    bool operator>=(const FechaHistorica & f) const;
+	
+	/**
+    * @brief Compara los años de dos fechas históricas
+    * @param f FechaHistorica a comparar
+    * @ret Devuelve un booleano, 1 si el primer año es igual que el 
+		*   segundo, 0 en caso contrario.
+    */ 
+    bool operator==(const FechaHistorica & f) const;
+	
+	/**
+    * @brief Compara los años de dos fechas históricas
+    * @param f FechaHistorica a comparar
+    * @ret Devuelve un booleano, 1 si el primer año es distinto al 
+		*   segundo, 0 en caso contrario.
+    */ 
+    bool operator!=(const FechaHistorica & f) const;
+	
   /**
-    * @brief Salida de una fechaHistorica a ostream
+    * @brief Salida de una FechaHistorica a ostream
     * @param os stream de salida
     * @param fecha FechaHistorica a escribir
     * @post Se obtiene en \a os la cadena 

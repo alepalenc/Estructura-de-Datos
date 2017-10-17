@@ -98,5 +98,19 @@ bool Cronologia::vacia() const{
 	return cronol == 0;
 }
 
+//operador =
+Cronologia & Cronologia::operator=(const Cronologia & c){
+	 if (this!=&c)
+		 cronol = c.cronol;
+	return *this;
+}
 
+//operador +=
+Cronologia & Cronologia::operator+=(const Cronologia & c){
+	int n = c.cronol.getOcupados();	
+	for(int i=0; i<n; i++)
+		insertar(c.cronol[i]);
+		
+	return *this;
+}
 

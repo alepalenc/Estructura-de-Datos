@@ -20,6 +20,42 @@ Cronologia::Cronologia(const Cronologia & c){
 Cronologia::~Cronologia(){
 }
 
+//getNfechas()
+int getNfechas() const{
+	return cronol.getOcupados();
+}	
+
+//Comprobar que está vacia
+bool Cronologia::vacia() const{
+	return cronol == 0;
+}
+
+
+//Consultar si el parámetro entero es un año de alguna FechaHistorica almacenada
+int Cronologia::consultarAnio(int a){
+	int inf=0, sup=cronol.getNhechos()-1, med=sup/2;
+	bool enc=0;
+	
+	if (inf==sup && cronol[inf].getAnio()==a)	//Caso extremo en el que
+		enc=1;					//solamente hay una fecha
+	
+	while (!enc && inf<sup){
+		med=(sup+inf)/2;
+		if (cronol[med].getAnio()<a)
+			inf=med+1;
+		else if(cronol[med].getAnio()>a)
+			sup=med-1;
+		else
+			enc=1;
+	}
+	
+	if (!enc)
+		med=-1;
+	
+	return med;
+}
+
+
 //Insertar
 void Cronologia::insertar(const FechaHistorica &fech){
 	int aux =fech.anio;
@@ -33,30 +69,13 @@ void Cronologia::insertar(const FechaHistorica &fech){
 	}else{
 		cronol.insertar(fech, i);
 	}
-    }
-
-
-//Consultar si anio
-int Cronologia::consultarAnio(int fech){
-	int pos = -1;
-	int n = cronol.getOcupados();
-	int i=0;
-	bool encontrado = false;
-	while(i<ocupados && encontrado == false){
-		if(cronol[i].anio == fech){
-			encontrado = true;
-		}else{
-			i++;
-		}
-	}
-	if(encontrado == true){
-		pos = i;
-	}
-	return pos;
 }
 
 
-//Consultar si existe un hecho y en que anio ocurrió
+
+
+
+//Consultar si existe un hecho y en qué anio ocurrió
 int Cronologia::consultarHecho(const string & h){
 	int pos=-1;
 	int n=cronol.getOcupados();
@@ -85,11 +104,6 @@ void Cronologia::eliminarFecha(int fech){
 	if(pos != -1){
 		cronol.eliminar(pos);
 	}
-}	
-
-//Comprobar que está vacia
-bool Cronologia::vacia() const{
-	return cronol == 0;
 }
 
 //BUSCAR EVENTOS
@@ -113,3 +127,29 @@ Cronologia & Cronologia::operator+=(const Cronologia & c){
 	return *this;
 }
 
+
+
+
+
+
+
+	/*
+	ANTIGUO ALGORITMO DE consultarAnio(), MENOS EFICIENTE
+	(ahora está el de búsqueda binaria, borra este si estás de acuerdo)
+	
+	int pos = -1;
+	int n = cronol.getNhechos();
+	int i=0;
+	bool encontrado = false;
+	while(i<ocupados && encontrado == false){
+		if(cronol[i].anio == fech){
+			encontrado = true;
+		}else{
+			i++;
+		}
+	}
+	if(encontrado == true){
+		pos = i;
+	}
+	return pos;
+	*/

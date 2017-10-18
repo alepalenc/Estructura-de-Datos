@@ -31,8 +31,8 @@ bool Cronologia::vacia() const{
 }
 
 
-//Consultar si el parámetro entero es un año de alguna FechaHistorica almacenada
-int Cronologia::consultarAnio(int a){
+//Buscar un hecho histórico dado su año
+int Cronologia::buscarAnio(int a){
 	int inf=0, sup=cronol.getNhechos()-1, med=sup/2;
 	bool enc=0;
 	
@@ -58,11 +58,11 @@ int Cronologia::consultarAnio(int a){
 
 //Insertar
 void Cronologia::insertar(const FechaHistorica &fech){
-	int aux =fech.anio;
-	int i=0;
-	while(cronol[i].anio<aux)
-		i++;
-	if(cronol[i] == aux){
+	int a=fech.getAnio();
+	int i;
+	while (cronol[i].getAnio()<a && i<cronol.getOcupados())
+		++i;
+	if (i<cronol.getOcupados() && cronol[i] == a){
 		int nhechos=fech.getNhechos();
 		for (int j=0; j<nhechos; ++j)
 			cronol[i] += fech[j];
@@ -70,9 +70,6 @@ void Cronologia::insertar(const FechaHistorica &fech){
 		cronol.insertar(fech, i);
 	}
 }
-
-
-
 
 
 //Consultar si existe un hecho y en qué anio ocurrió

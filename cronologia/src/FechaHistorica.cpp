@@ -25,13 +25,19 @@ int FechaHistorica::getAnio() const{
 }
 
 //getNhechos
-int getNhechos() const;
+int getNhechos() const{
+  return hechos.getOcupados();
+}
 
 //Operador []
-string & operator[] (int i);
+string & operator[] (int i){
+  return hechos[i];
+}
 
 //Operador [] constante
-const string & operator[](int i) const;
+const string & operator[](int i) const{
+  return hechos[i];
+}
 
 //Consultar
 int FechaHistorica::consultar(const string & h) const{

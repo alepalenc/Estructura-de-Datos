@@ -104,7 +104,7 @@ class FechaHistorica {
     * @param i la posición donde está el hecho
     * @pre 0<=i<getNhechos()
     * @return La referencia al hecho. Por tanto, se puede usar para almacenar
-    *     un hecho en esa posición.
+    *   un hecho en esa posición.
     */
     string & operator[] (int i);
 
@@ -113,7 +113,7 @@ class FechaHistorica {
     * @param i la posición donde está el hecho
     * @pre 0<=i<getNhechos()
     * @return La referencia al elemento. Se supone que la FehcaHistorica no se
-        puede modificar y por tanto es acceso de sólo lectura
+    *   puede modificar y por tanto es acceso de sólo lectura
     */
     const string & operator[](int i) const;
 

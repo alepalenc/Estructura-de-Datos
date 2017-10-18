@@ -18,29 +18,23 @@ Cronologia::Cronologia(const Cronologia & c){
 
 //Destructor
 Cronologia::~Cronologia(){
-  	if (cronolog!=NULL){
-    		delete[] cronolog;
-	}
 }
 
 //Insertar
 void Cronologia::insertar(const FechaHistorica &fech){
-	int aux =fech.anio;;
+	int aux =fech.anio;
 	int i=0;
 	while(cronol[i].anio<aux)
 		i++;
 	if(cronol[i] == aux){
-		cronol[i] += fech.hechos;
+		int nhechos=fech.getNhechos();
+		for (int j=0; j<nhechos; ++j)
+			cronol[i] += fech[j];
 	}else{
 		cronol.insertar(fech, i);
 	}
     }
-    
 
-//Insertar al principio
-void Cronologia::insertarPrincipio(const FechaHistorica &fech){
-	insertar(fech, 0);
-    }
 
 //Consultar si anio
 int Cronologia::consultarAnio(int fech){

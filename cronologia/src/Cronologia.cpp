@@ -76,10 +76,8 @@ void Cronologia::insertar(const FechaHistorica &fech){
 int Cronologia::consultarHecho(const string & h){
 	int pos=-1;
 	int n=cronol.getOcupados();
-	for()
-	
 	for (int i=0 ; i<n && pos==-1 ; ++i){
-		int m = cronol[i].hechos.getOcupados();
+		int m = cronol[i].getNhechos();
 		for(int j=0; j<m && pos==-1; ++j){
 			if (h==cronol[i].hechos[j])
 				pos=i;
@@ -97,7 +95,7 @@ void Cronologia::eliminar(int pos){
 
 //Eliminar anio en concreto
 void Cronologia::eliminarFecha(int fech){
-	int pos = consultarAnio(fech);
+	int pos = buscarAnio(fech);
 	if(pos != -1){
 		cronol.eliminar(pos);
 	}
@@ -116,12 +114,10 @@ Cronologia & Cronologia::operator=(const Cronologia & c){
 }
 
 //operador +=
-Cronologia & Cronologia::operator+=(const Cronologia & c){
+void Cronologia::operator+=(const Cronologia & c){
 	int n = c.cronol.getOcupados();	
 	for(int i=0; i<n; i++)
 		insertar(c.cronol[i]);
-		
-	return *this;
 }
 
 

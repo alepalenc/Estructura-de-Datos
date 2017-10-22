@@ -92,6 +92,30 @@ class FechaHistorica {
     * @return Devuelve el año
     */ 
     int getAnio() const;
+	
+  /**
+    * @brief Devuelve número de hechos almacenados
+    * @return Devuelve el número de hechos almacenados
+    */ 
+    int getNhechos() const;
+	
+  /**
+    * @brief Acceso a un hecho de una FechaHistorica
+    * @param i la posición donde está el hecho
+    * @pre 0<=i<getNhechos()
+    * @return La referencia al hecho. Por tanto, se puede usar para almacenar
+    *   un hecho en esa posición.
+    */
+    string & operator[] (int i);
+
+  /**
+    * @brief Acceso a un hecho de una FechaHistorica constante
+    * @param i la posición donde está el hecho
+    * @pre 0<=i<getNhechos()
+    * @return La referencia al elemento. Se supone que la FehcaHistorica no se
+    *   puede modificar y por tanto es acceso de sólo lectura
+    */
+    const string & operator[](int i) const;
 
   /**
     * @brief Busca la posición del hecho pasado por parámetro

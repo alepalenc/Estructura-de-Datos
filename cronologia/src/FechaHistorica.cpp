@@ -7,7 +7,7 @@ using namespace std;
 
 
 //Constructor por defecto
-FechaHistorica::FechaHistorica(): anio(a), hechos(){}
+FechaHistorica::FechaHistorica(int a): anio(a), hechos(0){}
 
 
 //Constructor de copia
@@ -19,28 +19,39 @@ FechaHistorica::FechaHistorica(const FechaHistorica & c):
 FechaHistorica::~FechaHistorica(){}
 
 
+//setAnio
+void FechaHistorica::setAnio(int a){
+  anio=a;
+}
+
 //getAnio
 int FechaHistorica::getAnio() const{
   return anio;
 }
 
 //getNhechos
-int getNhechos() const{
+int FechaHistorica::getNhechos() const{
   return hechos.getOcupados();
 }
 
 //Operador []
-string & operator[] (int i){
+string & FechaHistorica::operator[] (int i){
   return hechos[i];
 }
 
 //Operador [] constante
-const string & operator[](int i) const{
+const string & FechaHistorica::operator[](int i) const{
   return hechos[i];
 }
 
-//Consultar
-int FechaHistorica::consultar(const string & h) const{
+//Vacia
+bool FechaHistorica::vacio() const{
+	return hechos.vacio();
+}
+
+
+//Buscar Hecho
+int FechaHistorica::buscarHecho(const string & h) const{
   int pos=-1;
   int n=hechos.getOcupados();
   for (int i=0 ; i<n && pos==-1 ; ++i)
@@ -72,14 +83,14 @@ FechaHistorica & FechaHistorica::operator=(const FechaHistorica & c){
 
 //Operador +=
 void FechaHistorica::operator+=(const string & h){
-  if (consultar(h)==-1)
-    hechos.insertar(h);
+  if (buscarHecho(h)==-1)
+    hechos.insertar(h, hechos.getOcupados());
 }
 
 
 //Operador -=
 void FechaHistorica::operator-=(const string & h){
-  pos=consultar(h);
+  int pos=buscarHecho(h);
   if (pos!=-1)
     hechos.eliminar(pos);
 }
@@ -116,15 +127,15 @@ bool FechaHistorica::operator==(const FechaHistorica & f) const{
 
 
 //Operador !=
-bool FechaHistorica::operator>=(const FechaHistorica & f) const{
+bool FechaHistorica::operator!=(const FechaHistorica & f) const{
   return anio!=f.anio;
 }
 
 
 //Operador <<
 ostream & operator<<(ostream & os, const FechaHistorica & fecha){
-  os << anio;
-  n=fecha.hechos.getOcupados();
+  os << fecha.getAnio();
+  int n=fecha.getNhechos();
   for (int i=0 ; i<n ; ++i)
     os << '#' << fecha.hechos[i];
   
@@ -134,20 +145,33 @@ ostream & operator<<(ostream & os, const FechaHistorica & fecha){
 
 //Operador >>
 istream & operator>>(istream & is, FechaHistorica & fecha){
-  if (!fecha.hechos.vacia())
+  if (!fecha.vacio())
     fecha.hechos.resize(0);
   
-  string aux1, aux2;
-  getline(is, aux1, '\n');    //Leo la cadena entera y la guardo en aux1
-  
-  aux2=strtok(aux1,"#");      //Obtengo el valor de fecha.anio
-  fecha.anio=atoi(aux2);
-  
-  while(aux2!=NULL)           //Obtengo los valores de cada hecho
-    fecha+=strtok(NULL,"#");
+  string aux;
+  getline(is, aux, '\n');    //Leo la cadena entera y la guardo en aux1
+	unsigned int pos=aux.find('#');			//Busco la primera ocurrencia de '#' en aux1
+	
+	if (pos!=string::npos)
+		fecha.setAnio(stoi(aux));		//Paso aux a int y la guardo en fecha.anio
+	else{
+  	int longitud=aux.length();		//Guardo longitud de aux
+		fecha.setAnio(stoi(aux.substr(0,pos-1)));		//Tomo la subcadena que va desde el
+				//principio de aux hasta el primer '#', la paso a int y la guardo en fecha.anio
+		aux=aux.substr(pos+1,longitud);		//Quito de aux la parte a la izquierda del primer '#'
+		longitud=aux.length();		//Guardo longitud de aux
+		pos=aux.find('#');		//Busco la primera ocurrencia de '#' en aux
+
+		while(pos!=string::npos){
+			fecha+=aux.substr(0,pos-1);		//Tomo la subcadena que va desde el
+				//principio de aux hasta el primer '#', la paso a int y la guardo en fecha.hechos
+			aux=aux.substr(pos+1,longitud);		//Quito de aux la parte a la izquierda del primer '#'
+			longitud=aux.length();		//Guardo longitud de aux
+			pos=aux.find('#');		//Busco la primera ocurrencia de '#' en aux
+		}
+		
+		fecha+=aux;		//Guardo aux (la parte final del original) en fecha.hechos
+	}
   
   return is;
 }
-
-
-

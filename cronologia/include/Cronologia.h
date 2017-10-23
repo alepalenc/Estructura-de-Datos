@@ -61,8 +61,24 @@ class Cronologia {
 /**
   * @brief Contructor copia de la clase.
   */ 
- Cronologia(const Cronologia & c);
+  Cronologia(const Cronologia & c);
 
+/**
+  * @brief Devuelve el número de fechas almacenadas
+  */ 
+  int getNfechas() const;
+
+ /**
+  * @brief Comprueba si no hay ningún hecho guardado
+  */
+  bool vacia() const;
+ 
+ /**
+  * @brief Comprueba si un anio ya pertenece al vector cronol
+  * @param a anio a comprobar
+  */
+  int buscarAnio(int a);
+ 
 /**
   * @brief elimina una posicion especifica de cronol
   */ 
@@ -87,17 +103,6 @@ class Cronologia {
   */
   int consultarHecho(const string & h);
 
- /**
-  * @brief Comprueba si un anio ya pertenece al vector cronol
-  * @param fech anio a comprobar
-  */
-  int consultarAnio(int fech);
- 
-/**
-  * @brief Comprueba si no hay ningún hecho guardado
-  */
-  bool vacia() const;
-
 /**
   * @brief Imprime una fecha (año, número de hechos y hechos)
   */
@@ -105,11 +110,9 @@ class Cronologia {
 
 /**
   * @brief Operador de asignación de la clase
-  * @param c.anio año en el que ocurrieron los hechos
-  * @param c.hechos hechos que ocurrieron en ese año
-  * @param c.numelem número de hechos que ocurrieron ese año
+  * @param c.cronol vector de fechas
   */
-  FechaHistorica & operator=(const FechaHistorica & c);
+  Cronologia & operator=(const Cronologia & c);
 
 /**
   * @brief Añade un nuevo hecho no guardado aún

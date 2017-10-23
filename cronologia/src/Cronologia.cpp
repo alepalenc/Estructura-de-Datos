@@ -59,7 +59,7 @@ int Cronologia::buscarAnio(int a){
 //Insertar
 void Cronologia::insertar(const FechaHistorica &fech){
 	int a=fech.getAnio();
-	int i;
+	int i=0;
 	while (cronol[i].getAnio()<a && i<cronol.getOcupados())
 		++i;
 	if (i<cronol.getOcupados() && cronol[i] == a){
@@ -117,7 +117,7 @@ Cronologia & Cronologia::operator=(const Cronologia & c){
 void Cronologia::operator+=(const Cronologia & c){
 	int n = c.cronol.getOcupados();	
 	for(int i=0; i<n; i++)
-		insertar(c.cronol[i]);
+		insertar(c.cronol[i],cronol.getOcupados());
 }
 
 

@@ -8,6 +8,8 @@
 #define __CRONOLOGIA
 
 #include <iostream>
+#include "VectorDinamico.h"
+#include "FechaHistorica.h"
 
 using namespace std;
 
@@ -68,40 +70,67 @@ class Cronologia {
   */ 
   int getNfechas() const;
 
- /**
+/**
+  * @brief Devuelve el año de una FechaHistorica dada su posición
+  * @pre 0<=i<getNfechas()
+  */ 
+  int getAnio(int pos) const;
+
+/**
+  * @brief Acceso a un hecho de una Cronologia
+  * @param i la posición donde está el fecha
+  * @pre 0<=i<getNfechas()
+  * @return La referencia a la fecha. Por tanto, se puede usar para almacenar
+  *   un hecho en esa posición.
+  */
+  FechaHistorica & operator[] (int i);
+
+/**
+  * @brief Acceso a un hecho de una Cronologia constante
+  * @param i la posición donde está el fecha
+  * @pre 0<=i<getNfechas()
+  * @return La referencia al elemento. Se supone que la Cronologia no se
+  *   puede modificar y por tanto es acceso de sólo lectura
+  */
+  const FechaHistorica & operator[](int i) const;
+ 
+/**
   * @brief Comprueba si no hay ningún hecho guardado
   */
   bool vacia() const;
  
- /**
+/**
   * @brief Comprueba si un anio ya pertenece al vector cronol
   * @param a anio a comprobar
+  * @return Devuelve la posición en que se encuentra ese anio (si no está devuelve -1) 
   */
   int buscarAnio(int a);
  
 /**
-  * @brief elimina una posicion especifica de cronol
+  * @brief Busca a que anio pertenece el hecho enunciado
+  * @param h hecho a comprobar
+  * @return Devuelve la posición de la fecha en la que se encuentra ese hecho (si no está devuelve -1) 
+  */
+  int buscarHecho(const string & h); 
+ 
+/**
+  * @brief elimina una fecha de cronol dada su posición
   */ 
-  void eliminar(int pos);
+  void eliminarPorPos(int pos);
  
  /**
-  * @brief elimina una fecha especifica de cronol
+  * @brief elimina una fecha de cronol dado su año
   */ 
-  void eliminarFecha(int fech);
+  void eliminarPorAnio(int a);
 
 
 /**
   * @brief Comprueba si un hecho ya pertenece al vector hechos
   * @param h hecho a comprobar
   */
- bool consultar(const string & h) const;
+  bool consultar(const string & h) const;
  
- /**
-  * @brief Busca a que anio pertenece el hecho enunciado
-  * @param h hecho a comprobar
-  * @return Devuelve el anio en que se encuentra ese hecho (si no está devuelve -1) 
-  */
-  int consultarHecho(const string & h);
+
 
 /**
   * @brief Imprime una fecha (año, número de hechos y hechos)

@@ -2,6 +2,7 @@
 #include <cassert>
 #include <cstdlib>
 #include "Cronologia.h"
+#include <string>
 
 using namespace std;
 
@@ -21,7 +22,7 @@ Cronologia::~Cronologia(){
 }
 
 //getNfechas()
-int getNfechas() const{
+int Cronologia::getNfechas() const{
 	return cronol.getOcupados();
 }	
 
@@ -30,6 +31,7 @@ bool Cronologia::vacia() const{
 	return cronol == 0;
 }
 
+int Cronologia::getAnio
 
 //Buscar un hecho histórico dado su año
 int Cronologia::buscarAnio(int a){
@@ -103,7 +105,22 @@ void Cronologia::eliminarFecha(int fech){
 
 //Buscar eventos que contengan una cadena y generar una sub-cronología con ellos
 Cronologia Cronologia::buscarEventos(string & h){
-	
+	n = cronol.getOcupados();
+	Cronologia aux;
+	for(i=; i<n; ++i){
+		m = cronol[i].getNhechos();
+		ani = cronol[i].getAnio();
+		for(j=0;j<m;++j)}{
+			FechaHistorica fech(ani);
+			if(strpos(cronol[i][j], h) !== false){
+				fech += cronol[i][j];
+			}
+			if(!fech.vacio()){
+				aux.insertar(fech);
+			}
+		}
+	}
+	return aux;
 }
 
 //operador =
@@ -120,7 +137,10 @@ void Cronologia::operator+=(const Cronologia & c){
 		insertar(c.cronol[i],cronol.getOcupados());	//método insertar del VectorDinamico
 }
 
-
+//Operador <<
+ostream & operator<<(ostream & os, const FechaHistorica & fecha){
+	
+}
 
 
 

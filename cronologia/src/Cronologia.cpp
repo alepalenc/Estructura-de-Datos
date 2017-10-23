@@ -18,60 +18,68 @@ Cronologia::Cronologia(const Cronologia & c){
 
 //Destructor
 Cronologia::~Cronologia(){
-  	if (cronolog!=NULL){
-    		delete[] cronolog;
-	}
 }
+
+//getNfechas()
+int getNfechas() const{
+	return cronol.getOcupados();
+}	
+
+//Comprobar que está vacia
+bool Cronologia::vacia() const{
+	return cronol == 0;
+}
+
+
+//Buscar un hecho histórico dado su año
+int Cronologia::buscarAnio(int a){
+	int inf=0, sup=cronol.getNhechos()-1, med=sup/2;
+	bool enc=0;
+	
+	if (inf==sup && cronol[inf].getAnio()==a)	//Caso extremo en el que
+		enc=1;					//solamente hay una fecha
+	
+	while (!enc && inf<sup){
+		med=(sup+inf)/2;
+		if (cronol[med].getAnio()<a)
+			inf=med+1;
+		else if(cronol[med].getAnio()>a)
+			sup=med-1;
+		else
+			enc=1;
+	}
+	
+	if (!enc)
+		med=-1;
+	
+	return med;
+}
+
 
 //Insertar
 void Cronologia::insertar(const FechaHistorica &fech){
-	int aux =fech.anio;;
+	int a=fech.getAnio();
 	int i=0;
-	while(cronol[i].anio<aux)
-		i++;
-	if(cronol[i] == aux){
-		cronol[i] += fech.hechos;
+	while (cronol[i].getAnio()<a && i<cronol.getOcupados())
+		++i;
+	if (i<cronol.getOcupados() && cronol[i] == a){
+		int nhechos=fech.getNhechos();
+		for (int j=0; j<nhechos; ++j)
+			cronol[i] += fech[j];
 	}else{
-		cronol.insertar(fech, i);
+		cronol.insertar(fech, i);	//método insertar del VectorDinamico
 	}
-    }
-    
-
-//Insertar al principio
-void Cronologia::insertarPrincipio(const FechaHistorica &fech){
-	insertar(fech, 0);
-    }
-
-//Consultar si anio
-int Cronologia::consultarAnio(int fech){
-	int pos = -1;
-	int n = cronol.getOcupados();
-	int i=0;
-	bool encontrado = false;
-	while(i<ocupados && encontrado == false){
-		if(cronol[i].anio == fech){
-			encontrado = true;
-		}else{
-			i++;
-		}
-	}
-	if(encontrado == true){
-		pos = i;
-	}
-	return pos;
 }
 
 
-//Consultar si existe un hecho y en que anio ocurrió
-int Cronologia::consultarHecho(const string & h){
+//Consultar si existe un hecho y en qué anio ocurrió
+int Cronologia::buscarHecho(const string & h){
 	int pos=-1;
 	int n=cronol.getOcupados();
-	for()
-	
 	for (int i=0 ; i<n && pos==-1 ; ++i){
-		int m = cronol[i].hechos.getOcupados();
+		int m = cronol[i].getNhechos();
 		for(int j=0; j<m && pos==-1; ++j){
-			if (h==cronol[i].hechos[j])
+			if (h==cronol[i][j])
 				pos=i;
 		}
 	}
@@ -87,20 +95,15 @@ void Cronologia::eliminar(int pos){
 
 //Eliminar anio en concreto
 void Cronologia::eliminarFecha(int fech){
-	int pos = consultarAnio(fech);
+	int pos = buscarAnio(fech);
 	if(pos != -1){
 		cronol.eliminar(pos);
 	}
-}	
-
-//Comprobar que está vacia
-bool Cronologia::vacia() const{
-	return cronol == 0;
 }
 
-//BUSCAR EVENTOS
+//Buscar eventos que contengan una cadena y generar una sub-cronología con ellos
 Cronologia Cronologia::buscarEventos(string & h){
-		
+	
 }
 
 //operador =
@@ -111,11 +114,35 @@ Cronologia & Cronologia::operator=(const Cronologia & c){
 }
 
 //operador +=
-Cronologia & Cronologia::operator+=(const Cronologia & c){
+void Cronologia::operator+=(const Cronologia & c){
 	int n = c.cronol.getOcupados();	
 	for(int i=0; i<n; i++)
-		insertar(c.cronol[i]);
-		
-	return *this;
+		insertar(c.cronol[i],cronol.getOcupados());	//método insertar del VectorDinamico
 }
 
+
+
+
+
+
+
+	/*
+	ANTIGUO ALGORITMO DE consultarAnio(), MENOS EFICIENTE
+	(ahora está el de búsqueda binaria, borra este si estás de acuerdo)
+	
+	int pos = -1;
+	int n = cronol.getOcupados();
+	int i=0;
+	bool encontrado = false;
+	while(i<ocupados && encontrado == false){
+		if(cronol[i].anio == fech){
+			encontrado = true;
+		}else{
+			i++;
+		}
+	}
+	if(encontrado == true){
+		pos = i;
+	}
+	return pos;
+	*/

@@ -195,19 +195,17 @@ class FechaHistorica {
     */ 
     bool operator>=(const FechaHistorica & f) const;
 	
-  /**
-    * @brief Compara dos fechas históricas
+	/**
+    * @brief Compara los años de dos fechas históricas
     * @param f FechaHistorica a comparar
-    * @ret Devuelve un booleano, 1 si la primera es igual que la 
-    *   segunda, 0 en caso contrario.
+    * @ret Devuelve un booleano, 1 si los años son iguales, 0 en caso contrario.
     */ 
     bool operator==(const FechaHistorica & f) const;
 	
-  /**
-    * @brief Compara dos fechas históricas
+	/**
+    * @brief Compara los años de dos fechas históricas
     * @param f FechaHistorica a comparar
-    * @ret Devuelve un booleano, 1 si la primera fecha es distinta a la 
-    *   segunda, 0 en caso contrario.
+    * @ret Devuelve un booleano, 1 si los años son distintos, 0 en caso contrario.
     */ 
     bool operator!=(const FechaHistorica & f) const;
 	

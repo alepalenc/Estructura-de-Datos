@@ -67,7 +67,7 @@ void Cronologia::insertar(const FechaHistorica &fech){
 		for (int j=0; j<nhechos; ++j)
 			cronol[i] += fech[j];
 	}else{
-		cronol.insertar(fech, i);
+		cronol.insertar(fech, i);	//método insertar del VectorDinamico
 	}
 }
 
@@ -79,7 +79,7 @@ int Cronologia::buscarHecho(const string & h){
 	for (int i=0 ; i<n && pos==-1 ; ++i){
 		int m = cronol[i].getNhechos();
 		for(int j=0; j<m && pos==-1; ++j){
-			if (h==cronol[i].hechos[j])
+			if (h==cronol[i][j])
 				pos=i;
 		}
 	}
@@ -117,7 +117,7 @@ Cronologia & Cronologia::operator=(const Cronologia & c){
 void Cronologia::operator+=(const Cronologia & c){
 	int n = c.cronol.getOcupados();	
 	for(int i=0; i<n; i++)
-		insertar(c.cronol[i],cronol.getOcupados());
+		insertar(c.cronol[i],cronol.getOcupados());	//método insertar del VectorDinamico
 }
 
 

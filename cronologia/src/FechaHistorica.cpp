@@ -122,13 +122,23 @@ bool FechaHistorica::operator>=(const FechaHistorica & f) const{
 
 //Operador ==
 bool FechaHistorica::operator==(const FechaHistorica & f) const{
-  return anio==f.anio;
+	bool iguales=1;
+  	if (anio!=f.anio || hechos.getOcupados()!=f.hechos.getOcupados())
+		iguales=0;
+	else{
+		nhechos=hechos.getOcupados();
+		for (int i=0; i< && iguales; ++i)
+			if (hechos[i]!=f.hechos[i])
+				iguales=0;
+	}
+  
+	return iguales;
 }
 
 
 //Operador !=
 bool FechaHistorica::operator!=(const FechaHistorica & f) const{
-  return anio!=f.anio;
+  return !(*this==f);
 }
 
 

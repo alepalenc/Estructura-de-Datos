@@ -47,7 +47,7 @@ class VectorDinamico {
       */
     T * datos; /**< Apunta a los elementos del vector */
     int nelementos; /**< Indica el número de elementos en @c datos */
-	int ocupados; /**< Indica el número de elementos en uso en @c datos */
+		int ocupados; /**< Indica el número de elementos en uso en @c datos */
   
   
   public:
@@ -140,20 +140,19 @@ class VectorDinamico {
     * @brief Añade un nuevo elemento
     * @param nuevo el nuevo elemento a añadir
     * @param i la posición en la que se va a añadir el nuevo elemento 
-    *   (por defecto justo detrás del último)
+    *   (por defecto justo al principio)
     * @pre 0<=i<=getOcupados()
     */ 
-    void insertar(const T & nuevo, int i=getOcupados());
+    void insertar(const T & nuevo, int i=0);
 
   /**
     * @brief Elimina un elemento
     * @param i la posición del elemento que se va a eliminar
-    *   (por defecto el último)
+    *   (por defecto el primero)
     * @pre 0<=i<getOcupados()
     */ 
-    void eliminar(int i=getOcupados()-1);
+    void eliminar(int i=0);
 };
 
 #include "VectorDinamico.cpp"
 #endif /* __VECTOR_DINAMICO */
-

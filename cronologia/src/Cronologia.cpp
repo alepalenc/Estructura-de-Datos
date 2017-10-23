@@ -73,7 +73,7 @@ void Cronologia::insertar(const FechaHistorica &fech){
 
 
 //Consultar si existe un hecho y en qué anio ocurrió
-int Cronologia::consultarHecho(const string & h){
+int Cronologia::buscarHecho(const string & h){
 	int pos=-1;
 	int n=cronol.getOcupados();
 	for (int i=0 ; i<n && pos==-1 ; ++i){
@@ -101,9 +101,9 @@ void Cronologia::eliminarFecha(int fech){
 	}
 }
 
-//BUSCAR EVENTOS
+//Buscar eventos que contengan una cadena y generar una sub-cronología con ellos
 Cronologia Cronologia::buscarEventos(string & h){
-		
+	
 }
 
 //operador =

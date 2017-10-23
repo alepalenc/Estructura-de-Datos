@@ -131,7 +131,7 @@ void Cronologia::operator+=(const Cronologia & c){
 	(ahora está el de búsqueda binaria, borra este si estás de acuerdo)
 	
 	int pos = -1;
-	int n = cronol.getNhechos();
+	int n = cronol.getOcupados();
 	int i=0;
 	bool encontrado = false;
 	while(i<ocupados && encontrado == false){

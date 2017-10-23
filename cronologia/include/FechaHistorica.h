@@ -88,6 +88,12 @@ class FechaHistorica {
   
   // ---------------  Otras funciones ---------------
   /**
+    * @brief Cambia el valor del año
+		* @param a Nuevo valor para anio
+    */ 
+	void setAnio(int a);
+	
+  /**
     * @brief Devuelve año
     * @return Devuelve el año
     */ 
@@ -116,14 +122,20 @@ class FechaHistorica {
     *   puede modificar y por tanto es acceso de sólo lectura
     */
     const string & operator[](int i) const;
-
+	
+  /**
+    * @brief Comprueba si la fecha no tiene almacenada ningún hecho
+    */
+    bool vacio() const;
+	
+	
   /**
     * @brief Busca la posición del hecho pasado por parámetro
     * @param h hecho a comprobar
     * @return Devuelve la posición si se encuentra un hecho cuya string coincida 
     *   exactamente con la que se pasa por parámetro, -1 en caso contrario.
     */
-    int consultar(const string & h) const;
+    int buscarHecho(const string & h) const;
 
   /**
     * @brief Imprime una fecha (año, número de hechos y hechos)
@@ -217,10 +229,6 @@ class FechaHistorica {
     *   anio`#'hechos[0]`#'hechos[1]`#'...,`#'hechos[n-1]
     */
     friend istream & operator>>(istream & is, FechaHistorica & fecha);
-}
+};
 
-
-
-
-
-
+#endif

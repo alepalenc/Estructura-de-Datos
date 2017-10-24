@@ -24,18 +24,37 @@ Cronologia::~Cronologia(){
 //getNfechas()
 int Cronologia::getNfechas() const{
 	return cronol.getOcupados();
-}	
+}
+
+//Devuelve el año deuna fecha dada su posoición
+int Cronologia::getAnio(int pos){
+	assert(0<=pos && pos<getNfechas());
+	return cronol[pos].getAnio;
+}
+
+//Operador []
+FechaHistorica & Cronologia::operator[] (int i){
+	assert(0<=i && i<getNfechas());
+	return cronol[i];
+}
+
+//Operador [] constante
+const FechaHistorica & Cronologia::operator[](int i) const{
+	assert(0<=i && i<getNfechas());
+	return cronol[i];
+}
 
 //Comprobar que está vacia
 bool Cronologia::vacia() const{
 	return cronol == 0;
 }
 
-int Cronologia::getAnio
 
-//Buscar un hecho histórico dado su año
+
+//Buscar la posición de una fecha dado su año
 int Cronologia::buscarAnio(int a){
-	int inf=0, sup=cronol.getNhechos()-1, med=sup/2;
+	int inf=0, sup=cronol.getNhechos()-1;
+	int med=sup/2;
 	bool enc=0;
 	
 	if (inf==sup && cronol[inf].getAnio()==a)	//Caso extremo en el que
@@ -58,6 +77,22 @@ int Cronologia::buscarAnio(int a){
 }
 
 
+//Buscar la posición de la fecha en la que está ubicado un hecho
+int Cronologia::buscarHecho(const string & h){
+	int pos=-1;
+	int n=cronol.getOcupados();
+	for (int i=0 ; i<n && pos==-1 ; ++i){
+		int m = cronol[i].getNhechos();
+		for(int j=0; j<m && pos==-1; ++j){
+			if (h==cronol[i][j])
+				pos=i;
+		}
+	}
+		
+	return pos;
+}
+
+
 //Insertar
 void Cronologia::insertar(const FechaHistorica &fech){
 	int a=fech.getAnio();
@@ -73,31 +108,16 @@ void Cronologia::insertar(const FechaHistorica &fech){
 	}
 }
 
-
-//Consultar si existe un hecho y en qué anio ocurrió
-int Cronologia::buscarHecho(const string & h){
-	int pos=-1;
-	int n=cronol.getOcupados();
-	for (int i=0 ; i<n && pos==-1 ; ++i){
-		int m = cronol[i].getNhechos();
-		for(int j=0; j<m && pos==-1; ++j){
-			if (h==cronol[i][j])
-				pos=i;
-		}
-	}
-		
-	return pos;
-}
 		
 
-//Eliminar
-void Cronologia::eliminar(int pos){
+//Eliminar fecha por posición
+void Cronologia::eliminarPorPos(int pos){
 	cronol.eliminar(pos);
 }
 
-//Eliminar anio en concreto
-void Cronologia::eliminarFecha(int fech){
-	int pos = buscarAnio(fech);
+//Eliminar fecha por anio
+void Cronologia::eliminarPorAnio(int a){
+	int pos = buscarAnio(a);
 	if(pos != -1){
 		cronol.eliminar(pos);
 	}
@@ -122,6 +142,28 @@ Cronologia Cronologia::buscarEventos(string & h){
 	}
 	return aux;
 }
+
+//ESTE MÉTODO ES EL MISMO QUE buscarEventos, ME GUSTARÍA SUSTITUIRLO
+
+//Buscar eventos que contengan una cadena y generar una sub-cronología con ellos
+Cronologia & Cronologia::crearSubcronologia(string & h, Cronologia & sub){
+	n = cronol.getOcupados();		//No me había fijado que devolver una cronología por valor es una burrada
+	sub.cronol.resize(0);			//Mejor la pasamos y la devolvemos por referencia
+	for(i=0; i<n; ++i){
+		m = cronol[i].getNhechos();
+		ani = cronol[i].getAnio();
+		for(j=0;j<m;++j)}{
+			FechaHistorica fech(ani);
+			if(cronol[i][j].find(h)!=string::npos)
+				fech += cronol[i][j];
+		}
+		if(!fech.vacio()){
+			sub.insertar(fech,sub.cronol.getOcupados());
+		}
+	}
+	return sub;
+}
+
 
 //operador =
 Cronologia & Cronologia::operator=(const Cronologia & c){

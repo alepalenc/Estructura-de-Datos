@@ -130,11 +130,6 @@ class Cronologia {
 		* @param a Año a borrar
 		*/ 
 		void eliminarPorAnio(int a);
-	
-	/**
-		* @brief Imprime una fecha (año, número de hechos y hechos)
-		*/
-		void print() const;
 
 	/**
 		* @brief Operador de asignación de la clase

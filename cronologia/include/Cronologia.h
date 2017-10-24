@@ -33,153 +33,148 @@ using namespace std;
 
 class Cronologia {
 
- private:
-/**
-  * @page repConjunto Rep del TDA Cronologia
-  *
-  * @section faConjunto Función de abstracción
-  *
-  * Un objeto válido @e rep del TDA Cronologia representa al valor
-  *
-  * (rep.cronol)
-  *
-  */
+	private:
+	/**
+		* @page repConjunto Rep del TDA Cronologia
+		*
+		* @section faConjunto Función de abstracción
+		*
+		* Un objeto válido @e rep del TDA Cronologia representa al valor
+		*
+		* (rep.cronol)
+		*
+		*/
+		
+		VectorDinamico<FechaHistorica> cronol; /**< cronol */
+		
+	public:
+		
+	/**
+		* @brief Constructor por defecto de la clase. Asigna NULL a cronolog 
+		*/
+		Cronologia(); 
+			
+	/**
+		* @brief Contructor copia de la clase.
+		*/ 
+		Cronologia(const Cronologia & c);
 
-  VectorDinamico<FechaHistorica> cronol; /**< cronol */
+	/**
+		* @brief Destructor de la clase
+		*/
+		~Cronologia(); 
 
- public:
+	/**
+		* @brief Devuelve el número de fechas almacenadas
+		*/ 
+		int getNfechas() const;
 
-/**
-  * @brief Constructor por defecto de la clase. Asigna NULL a cronolog 
-  */
-  Cronologia();
+	/**
+		* @brief Devuelve el año de una FechaHistorica dada su posición
+		* @pre 0<=i<getNfechas()
+		*/ 
+		int getAnio(int pos) const;
+
+	/**
+		* @brief Acceso a un hecho de una Cronologia
+		* @param i la posición donde está el fecha
+		* @pre 0<=i<getNfechas()
+		* @return La referencia a la fecha. Por tanto, se puede usar para almacenar
+		*   un hecho en esa posición.
+		*/
+		FechaHistorica & operator[] (int i);
+
+	/**
+		* @brief Acceso a un hecho de una Cronologia constante
+		* @param i la posición donde está el fecha
+		* @pre 0<=i<getNfechas()
+		* @return La referencia al elemento. Se supone que la Cronologia no se
+		*   puede modificar y por tanto es acceso de sólo lectura
+		*/
+		const FechaHistorica & operator[](int i) const;
  
-
-/**
-  * @brief Destructor de la clase
-  */
-  ~Cronologia();  
-
-/**
-  * @brief Contructor copia de la clase.
-  */ 
-  Cronologia(const Cronologia & c);
-
-/**
-  * @brief Devuelve el número de fechas almacenadas
-  */ 
-  int getNfechas() const;
-
-/**
-  * @brief Devuelve el año de una FechaHistorica dada su posición
-  * @pre 0<=i<getNfechas()
-  */ 
-  int getAnio(int pos) const;
-
-/**
-  * @brief Acceso a un hecho de una Cronologia
-  * @param i la posición donde está el fecha
-  * @pre 0<=i<getNfechas()
-  * @return La referencia a la fecha. Por tanto, se puede usar para almacenar
-  *   un hecho en esa posición.
-  */
-  FechaHistorica & operator[] (int i);
-
-/**
-  * @brief Acceso a un hecho de una Cronologia constante
-  * @param i la posición donde está el fecha
-  * @pre 0<=i<getNfechas()
-  * @return La referencia al elemento. Se supone que la Cronologia no se
-  *   puede modificar y por tanto es acceso de sólo lectura
-  */
-  const FechaHistorica & operator[](int i) const;
+	/**
+		* @brief Comprueba si no hay ningún hecho guardado
+		*/
+		bool vacia() const;
  
-/**
-  * @brief Comprueba si no hay ningún hecho guardado
-  */
-  bool vacia() const;
+	/**
+		* @brief Comprueba si un anio ya pertenece al vector cronol
+		* @param a anio a comprobar
+		* @return Devuelve la posición en que se encuentra ese anio (si no está devuelve -1) 
+		*/
+		int buscarAnio(int a);
  
-/**
-  * @brief Comprueba si un anio ya pertenece al vector cronol
-  * @param a anio a comprobar
-  * @return Devuelve la posición en que se encuentra ese anio (si no está devuelve -1) 
-  */
-  int buscarAnio(int a);
+	/**
+		* @brief Busca la posición de la fecha a la que pertenece el hecho enunciado
+		* @param h hecho a comprobar
+		* @return Devuelve la posición de la fecha en la que se encuentra ese hecho (si no está devuelve -1) 
+		*/
+		int buscarHecho(const string & h); 
  
-/**
-  * @brief Busca a que anio pertenece el hecho enunciado
-  * @param h hecho a comprobar
-  * @return Devuelve la posición de la fecha en la que se encuentra ese hecho (si no está devuelve -1) 
-  */
-  int buscarHecho(const string & h); 
- 
-/**
-  * @brief elimina una fecha de cronol dada su posición
-  */ 
-  void eliminarPorPos(int pos);
- 
- /**
-  * @brief elimina una fecha de cronol dado su año
-  */ 
-  void eliminarPorAnio(int a);
+	/**
+		* @brief Inserta una nueva fecha
+		* @param fech FechaHistorica a insertar
+		*/
+		int insertar(const FechaHistorica &fech); 
+	
+	/**
+		* @brief elimina una fecha de cronol dada su posición
+		* @param pos Posición a borrar
+		* @pre 0<=pos<getNfechas()
+		*/ 
+		void eliminarPorPos(int pos);
+
+	/**
+		* @brief elimina una fecha de cronol dado su año
+		* @param a Año a borrar
+		*/ 
+		void eliminarPorAnio(int a);
+	
+	/**
+		* @brief Imprime una fecha (año, número de hechos y hechos)
+		*/
+		void print() const;
+
+	/**
+		* @brief Operador de asignación de la clase
+		* @param c.cronol vector de fechas
+		*/
+		Cronologia & operator=(const Cronologia & c);
+
+	/**
+		* @brief Obtiene la unión de dos cronologías
+		* @param c1 Primera cronología a unir
+		* @param c2 Segunda cronología a unir
+		*/ 
+		void union(const & Cronologia c1, const & Cronologia c2);
+
+	/**
+		* @brief Obtiene la intersección de dos cronologías
+		* @param c1 Primera cronología a intersecar
+		* @param c2 Segunda cronología a intersecar
+		*/ 
+		void interseccion(const & Cronologia c1, const & Cronologia c2);
+
+	/**
+		* @brief Salida de una Cronologia a ostream
+		* @param os stream de salida
+		* @param c Cronologia a escribir
+		* @post Se obtiene en \a os tantas cadenas como fechas históricas haya
+		*   almacenadas, separadas por saltos de línea
+		*/
+		friend ostream & operator<<(ostream & os, const FechaHistorica & c);
+
+	/**
+		* @brief Entrada de una Cronologia desde istream
+		* @param is stream de entrada
+		* @param fecha Cronologia que recibe el valor
+		* @retval La Cronologia leído en fecha
+		* @pre La entrada tiene el formato de n cadenas (tantas como fechas)
+		*   separadas por saltos de línea, cada una con el formato de FechaHistorica
+		*/
+		friend istream & operator>>(istream & is, FechaHistorica & fecha);
+};
 
 
-/**
-  * @brief Comprueba si un hecho ya pertenece al vector hechos
-  * @param h hecho a comprobar
-  */
-  bool consultar(const string & h) const;
- 
-
-
-/**
-  * @brief Imprime una fecha (año, número de hechos y hechos)
-  */
-  void print() const;
-
-/**
-  * @brief Operador de asignación de la clase
-  * @param c.cronol vector de fechas
-  */
-  Cronologia & operator=(const Cronologia & c);
-
-/**
-  * @brief Añade un nuevo hecho no guardado aún
-  * @param h hecho a añadir
-  */ 
-  void operator+=(const string & h);
-
-/**
-  * @brief Elimina un hecho ya guardado
-  * @param h hecho a eliminar
-  */ 
-  void operator-=(const string & h);
-
-/**
-  * @brief Salida de una fechaHistorica a ostream
-  * @param os stream de salida
-  * @param fecha FechaHistorica a escribir
-  * @post Se obtiene en \a os la cadena anio,hecho1,hecho2,...,hechom con
-  *   \e anio el año y \e hechoi el hecho i-ésimo (con i desde 1 hasta m),
-  *   todos ellos separados por el carácter '#'
-  */
-  friend ostream & operator<<(ostream & os, const FechaHistorica & fecha);
-
-/**
-  * @brief Entrada de una FechaHistorica desde istream
-  * @param is stream de entrada
-  * @param fecha FechaHistorica que recibe el valor
-  * @retval La FechaHistorica leído en fecha
-  * @pre La entrada tiene el formato anio,hecho1,hecho2,...,hechom con
-  *   \e anio el año y \e hechoi el hecho i-ésimo (con i desde 1 hasta m),
-  *   todos ellos separados por el carácter '#'
-  */
-  friend istream & operator>>(istream & is, FechaHistorica & fecha);
-}
-
-
-
-
-
-
-
+#endif

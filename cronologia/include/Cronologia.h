@@ -136,7 +136,15 @@ class Cronologia {
 		* @param c.cronol vector de fechas
 		*/
 		Cronologia & operator=(const Cronologia & c);
-
+	
+	/**
+		* @brief Obtiene la sub-cronología de los hechos que contienen a la cadena h
+		* @param h Cadena que estará contenida en todos los hechos de la sub-cronología
+		* @param sub Cronología en la que se guarda la sub-cronología obtenida
+		* @return Devuelve la sub-cronología obtenida
+		*/ 
+		Cronologia & Cronologia::crearSubcronologia(string & h, Cronologia & sub) const;
+	
 	/**
 		* @brief Obtiene la unión de dos cronologías
 		* @param c1 Primera cronología a unir
@@ -158,7 +166,7 @@ class Cronologia {
 		* @post Se obtiene en \a os tantas cadenas como fechas históricas haya
 		*   almacenadas, separadas por saltos de línea
 		*/
-		friend ostream & operator<<(ostream & os, const FechaHistorica & c);
+		friend ostream & operator<<(ostream & os, const Cronologia & c);
 
 	/**
 		* @brief Entrada de una Cronologia desde istream
@@ -168,7 +176,7 @@ class Cronologia {
 		* @pre La entrada tiene el formato de n cadenas (tantas como fechas)
 		*   separadas por saltos de línea, cada una con el formato de FechaHistorica
 		*/
-		friend istream & operator>>(istream & is, FechaHistorica & fecha);
+		friend istream & operator>>(istream & is, Cronologia & c);
 };
 
 

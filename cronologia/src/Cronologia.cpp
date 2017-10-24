@@ -53,7 +53,8 @@ bool Cronologia::vacia() const{
 
 //Buscar la posición de una fecha dado su año
 int Cronologia::buscarAnio(int a){
-	int inf=0, sup=cronol.getNhechos()-1, med=sup/2;
+	int inf=0, sup=cronol.getNhechos()-1;
+	int med=sup/2;
 	bool enc=0;
 	
 	if (inf==sup && cronol[inf].getAnio()==a)	//Caso extremo en el que

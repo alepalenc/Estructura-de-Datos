@@ -103,14 +103,14 @@ class Cronologia {
 		* @param a anio a comprobar
 		* @return Devuelve la posición en que se encuentra ese anio (si no está devuelve -1) 
 		*/
-		int buscarAnio(int a);
+		int buscarAnio(int a) const;
  
 	/**
 		* @brief Busca la posición de la fecha a la que pertenece el hecho enunciado
 		* @param h hecho a comprobar
 		* @return Devuelve la posición de la fecha en la que se encuentra ese hecho (si no está devuelve -1) 
 		*/
-		int buscarHecho(const string & h); 
+		int buscarHecho(const string & h) const; 
  
 	/**
 		* @brief Inserta una nueva fecha

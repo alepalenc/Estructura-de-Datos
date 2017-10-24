@@ -154,10 +154,8 @@ istream & operator>>(istream & is, FechaHistorica & fecha){
   getline(is, aux, '\n');    //Leo la cadena entera y la guardo en aux1
 	unsigned int pos=aux.find('#');			//Busco la primera ocurrencia de '#' en aux1
 	
-	if (pos!=string::npos)
-		fecha.setAnio(stoi(aux));		//Paso aux a int y la guardo en fecha.anio
-	else{
-  	int longitud=aux.length();		//Guardo longitud de aux
+	if (pos!=string::npos){
+  		int longitud=aux.length();		//Guardo longitud de aux
 		fecha.setAnio(stoi(aux.substr(0,pos-1)));		//Tomo la subcadena que va desde el
 				//principio de aux hasta el primer '#', la paso a int y la guardo en fecha.anio
 		aux=aux.substr(pos+1,longitud);		//Quito de aux la parte a la izquierda del primer '#'
@@ -174,6 +172,8 @@ istream & operator>>(istream & is, FechaHistorica & fecha){
 		
 		fecha+=aux;		//Guardo aux (la parte final del original) en fecha.hechos
 	}
-  
+	else
+		fecha.setAnio(stoi(aux));		//Paso aux a int y la guardo en fecha.anio
+
   return is;
 }

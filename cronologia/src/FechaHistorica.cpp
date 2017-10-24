@@ -36,11 +36,13 @@ int FechaHistorica::getNhechos() const{
 
 //Operador []
 string & FechaHistorica::operator[] (int i){
+  assert(0<=i && i<getNhechos());
   return hechos[i];
 }
 
 //Operador [] constante
 const string & FechaHistorica::operator[](int i) const{
+  assert(0<=i && i<getNhechos());
   return hechos[i];
 }
 

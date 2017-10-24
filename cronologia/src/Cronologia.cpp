@@ -27,7 +27,7 @@ int Cronologia::getNfechas() const{
 }
 
 //Devuelve el año deuna fecha dada su posoición
-int Cronologia::getAnio(int pos){
+int Cronologia::getAnio(int pos) const{
 	assert(0<=pos && pos<getNfechas());
 	return cronol[pos].getAnio;
 }
@@ -50,14 +50,14 @@ bool Cronologia::vacia() const{
 }
 
 //Numero de fechas historicas contenidas PASAR AL H
-int Cronologia::getNFechas(){
+int Cronologia::getNFechas() const{
 	return cronol.getOcupados();
 }
 
 
 
 //Buscar la posición de una fecha dado su año
-int Cronologia::buscarAnio(int a){
+int Cronologia::buscarAnio(int a) const{
 	int inf=0, sup=cronol.getNhechos()-1;
 	int med=sup/2;
 	bool enc=0;
@@ -83,7 +83,7 @@ int Cronologia::buscarAnio(int a){
 
 
 //Buscar la posición de la fecha en la que está ubicado un hecho
-int Cronologia::buscarHecho(const string & h){
+int Cronologia::buscarHecho(const string & h) const{
 	int pos=-1;
 	int n=cronol.getOcupados();
 	for (int i=0 ; i<n && pos==-1 ; ++i){
@@ -128,6 +128,13 @@ void Cronologia::eliminarPorAnio(int a){
 	}
 }
 
+//operador =
+Cronologia & Cronologia::operator=(const Cronologia & c){
+	 if (this!=&c)
+		 cronol = c.cronol;
+	return *this;
+}
+
 //Buscar eventos que contengan una cadena y generar una sub-cronología con ellos
 Cronologia Cronologia::buscarEventos(string & h){
 	n = cronol.getOcupados();
@@ -151,7 +158,7 @@ Cronologia Cronologia::buscarEventos(string & h){
 //ESTE MÉTODO ES EL MISMO QUE buscarEventos, ME GUSTARÍA SUSTITUIRLO
 
 //Buscar eventos que contengan una cadena y generar una sub-cronología con ellos
-Cronologia & Cronologia::crearSubcronologia(string & h, Cronologia & sub){
+Cronologia & Cronologia::crearSubcronologia(string & h, Cronologia & sub) const{
 	n = cronol.getOcupados();		
 	sub.cronol.resize(0);			
 	for(i=0; i<n; ++i){
@@ -169,13 +176,38 @@ Cronologia & Cronologia::crearSubcronologia(string & h, Cronologia & sub){
 	return sub;
 }
 
-
-//operador =
-Cronologia & Cronologia::operator=(const Cronologia & c){
-	 if (this!=&c)
-		 cronol = c.cronol;
-	return *this;
+//Unión
+void Cronologia::union(const & Cronologia c1, const & Cronologia c2){
+	cronol.resize(0);
+	int n1=c1.getNfechas(), n2=c2.getNfechas();
+	for (int i=0; i<n1; ++i)
+		insertar(c1[i]);
+	for (int i=0; i<n2; ++i)
+		insertar(c2[i]);
 }
+
+//Intersección
+void Cronologia::interseccion(const & Cronologia c1, const & Cronologia c2){
+	cronol.resize(0);
+	int n1=c1.getNfechas(), n2=c2.getNfechas(), i=0, j=0;
+	while (i==n1 && c1[i].getAnio()<c2[j].getAnio() || j==n2 && c2[j].getAnio()<c1[i].getAnio()){
+		if (c1[i].getAnio()<c2[j].getAnio())
+			++i;
+		else if (c1[i].getAnio()>c2[j].getAnio())
+			++j;
+		else{
+			int m1=c1[i].getNhechos(), m2=c2[j].getNhechos();
+			FechaHistorica aux(c1[i].getAnio());
+			for (int k=0; k<m1; ++k)
+				for (int l=0; l<m1; ++l)
+					if (c1[i][k]==c2[j][l])
+						aux+=c1[i][k];
+			if (!aux.vacio())
+				insertar(aux);
+		}
+	}
+}
+
 
 //operador +=
 void Cronologia::operator+=(const Cronologia & c){

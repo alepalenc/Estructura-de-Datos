@@ -46,7 +46,12 @@ const FechaHistorica & Cronologia::operator[](int i) const{
 
 //Comprobar que está vacia
 bool Cronologia::vacia() const{
-	return cronol == 0;
+	return cronol.getOcupados() == 0;
+}
+
+//Numero de fechas historicas contenidas PASAR AL H
+int Cronologia::getNFechas(){
+	return cronol.getOcupados();
 }
 
 
@@ -147,8 +152,8 @@ Cronologia Cronologia::buscarEventos(string & h){
 
 //Buscar eventos que contengan una cadena y generar una sub-cronología con ellos
 Cronologia & Cronologia::crearSubcronologia(string & h, Cronologia & sub){
-	n = cronol.getOcupados();		//No me había fijado que devolver una cronología por valor es una burrada
-	sub.cronol.resize(0);			//Mejor la pasamos y la devolvemos por referencia
+	n = cronol.getOcupados();		
+	sub.cronol.resize(0);			
 	for(i=0; i<n; ++i){
 		m = cronol[i].getNhechos();
 		ani = cronol[i].getAnio();
@@ -158,7 +163,7 @@ Cronologia & Cronologia::crearSubcronologia(string & h, Cronologia & sub){
 				fech += cronol[i][j];
 		}
 		if(!fech.vacio()){
-			sub.insertar(fech,sub.cronol.getOcupados());
+			sub.insertar(fech);
 		}
 	}
 	return sub;
@@ -180,8 +185,8 @@ void Cronologia::operator+=(const Cronologia & c){
 }
 
 //Operador <<
-ostream & operator<<(ostream & os, const FechaHistorica & fecha){
-	
+ostream & operator<<(ostream & os, const Cronologia & cron){
+	n=cron.
 }
 
 
